@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.table-container {
+  margin: 20px auto;
+  width: 80%;
+  overflow-x: auto;
+}
+
+.bank-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bank-table th,
+.bank-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.bank-table th {
+  background-color: #f2f2f2;
+}
+
+.selected-row {
+  background-color: lightblue;
+}
+
+/* Style for QR code image */
+.icon-image {
+  width: 20%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .bank-table {
+    overflow-x: auto;
+    display: block;
+  }
+
+  .icon-image {
+    width: 100%;
+  }
+}

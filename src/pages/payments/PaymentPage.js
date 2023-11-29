@@ -1,18 +1,35 @@
 import React, { useState } from 'react';
+import prodConfig from '../../config';
 import './Payment.css';
 
 import mbIcon from '../../images/mb-icon.jpg';
-import tcbIcon from '../../images/tcb-icon.jpg';
 import vpIcon from '../../images/vp-icon.png';
+import acbIcon from '../../images/acb-icon.jpg';
 
-function Payment(props) {
-  const [selectedRow, setSelectedRow] = useState(null);
+function Payment() {
 
-  const handleClick = (value) => {
-    setSelectedRow(value);
+  const handleClick = async (value) => {
+    let text = "Xác nhận thanh toán qua ngân hàng: " + value;
+    if (window.confirm(text) == true) {
+      let billInfoObject = JSON.parse(sessionStorage.getItem('billInfo'));
+
+      if (value === 'ACB') {
+        billInfoObject.accountNo = prodConfig.ACB_ACCOUNT_NO;
+        billInfoObject.accountName = prodConfig.ACB_ACCOUNT_NAME;
+        billInfoObject.acqId = prodConfig.ACB_ID;
+      } else if (value === 'MB') {
+
+      }
+      // add template
+      billInfoObject.format = "text";
+      billInfoObject.template = "compact";
+      
+      sessionStorage.setItem('billInfo', JSON.stringify(billInfoObject))
+      window.location.href = `/transaction`;
+    }
+
     // alert(value)
-    localStorage.setItem('selectedItem', '0.2');
-    window.location.href = `/home`;
+    // window.location.href = `/transaction`;
   };
 
   return (
@@ -29,7 +46,17 @@ function Payment(props) {
           </thead>
           <tbody>
             <tr
-              className={selectedRow === 'MB' ? 'selected-row' : ''}
+              onClick={() => handleClick('ACB')}
+            >
+              <td><img
+                src={acbIcon}
+                alt="QR Code Image"
+                className="icon-image"
+              /></td>
+              <td>ACB</td>
+              <td>Ngân hàng á châu</td>
+            </tr>
+            <tr
               onClick={() => handleClick('MB')}
             >
               <td><img
@@ -41,27 +68,14 @@ function Payment(props) {
               <td>Ngân hàng quân đội</td>
             </tr>
             <tr
-              className={selectedRow === 'Techcombank' ? 'selected-row' : ''}
-              onClick={() => handleClick('Techcombank')}
-            >
-              <td><img
-                src={tcbIcon}
-                alt="QR Code Image"
-                className="icon-image"
-              /></td>
-              <td>Techcombank</td>
-              <td>Ngân hàng kỹ thương</td>
-            </tr>
-            <tr
-              className={selectedRow === 'VP bank' ? 'selected-row' : ''}
-              onClick={() => handleClick('VP bank')}
+              onClick={() => handleClick('VP')}
             >
               <td><img
                 src={vpIcon}
                 alt="QR Code Image"
                 className="icon-image"
               /></td>
-              <td>VP bank</td>
+              <td>VP</td>
               <td>Ngân hàng thương mại cổ phần</td>
             </tr>
           </tbody>

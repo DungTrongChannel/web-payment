@@ -2,32 +2,52 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // import page
 import LoginForm from './pages/login/LoginPage';
 import RegisterForm from './pages/register/RegisterPage';
-import Home from './pages/home/HomePage';
+// import Home from './pages/home/HomePage';
+import BillPage2 from './pages/bill/BillPage2';
+import TransactionPage2 from './pages/transaction/TransactionPage2';
+import PaymentPage2 from './pages/payments/PaymentPage2';
+import HistoryPage2 from './pages/history/HistoryPage2';
 
 const router = createBrowserRouter([
   {
-      path: '/',
-      element: <LoginForm />
+    path: '/',
+    element: <LoginForm />
+  },
+  // {
+  //     path: '/home',
+  //     element: <Home />
+  // },
+  {
+    path: '/register',
+    element: <RegisterForm />
   },
   {
-      path: '/home',
-      element: <Home />
+    path: '/bill',
+    element: <BillPage2 />
   },
   {
-      path: '/register',
-      element: <RegisterForm />
+    path: '/transaction',
+    element: <TransactionPage2 />
+  },
+  {
+    path: '/payment',
+    element: <PaymentPage2 />
+  },
+  {
+    path: '/history',
+    element: <HistoryPage2 />
   }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-     <RouterProvider router = { router } />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

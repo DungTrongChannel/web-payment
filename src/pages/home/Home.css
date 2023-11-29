@@ -41,9 +41,10 @@
     }
 
     #btnLogout {
-        width: 70px;
-        height: 20px;
+        width: 30%;
+        height: 20%;
         margin-left: 77%;
+        margin-right: 3%;
     }
 
     #btnLogout button {
@@ -52,6 +53,7 @@
   
     .header-item {
       margin-bottom: 10px;
+      text-align: left;
     }
   }
   

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 // import './Register.css'; // Import the CSS file for styling
+import * as API from '../../api/api'
 
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rePassword, setRePassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -19,25 +20,40 @@ const RegisterForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleRePasswordChange = (e) => {
-    setRePassword(e.target.value);
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform registration logic here using form state values
-    console.log('Username:', username);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // You can send this data to an API or perform validation here
+    if(validateCheckPasswordMatch()){
+      // call api register
+      let data = {
+        "username" : username,
+        "password" : password
+      }
+      API.apiRegister(data);
+    }
   };
+
+  const validateCheckPasswordMatch = () => {
+    if (username.trim().length === 0) {
+      alert("Tài khoản không được để trống")
+    } else if (password.trim().length === 0) {
+      alert("Mật khẩu không được để trống")
+    } else if (password !== confirmPassword) {
+      alert("Xác nhận mật khẩu không khớp")
+    } else {
+      return true;
+    }
+  }
 
   return (
     <div className="form-container">
-      <h2>Register</h2>
+      <h2>Đăng ký</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="register-username">Username:</label>
+          <label htmlFor="register-username">Tài khoản:</label>
           <input
             type="text"
             id="register-username"
@@ -45,7 +61,7 @@ const RegisterForm = () => {
             onChange={handleUsernameChange}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="register-email">Email:</label>
           <input
             type="email"
@@ -53,9 +69,9 @@ const RegisterForm = () => {
             value={email}
             onChange={handleEmailChange}
           />
-        </div>
+        </div> */}
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Mật khẩu:</label>
           <input
             type="password"
             id="password"
@@ -64,15 +80,15 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="re-password">Password:</label>
+          <label htmlFor="confirm-password">Xác nhận mật khẩu:</label>
           <input
             type="password"
-            id="re-password"
-            value={rePassword}
-            onChange={handleRePasswordChange}
+            id="confirm-password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit">Đăng Ký</button>
       </form>
     </div>
   );

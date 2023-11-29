@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as API from '../../api/api'
 
 import './Login.css'; // Import the CSS file for styling
 
 const LoginForm = () => {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -16,17 +16,26 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleLoginBtn = (e) => {
+  const handleLoginBtn = async () => {
     // go to home page
-    navigate('/home');
+    // navigate('/home');
+    let loginInfo = {
+      "username" : username,
+      "password" : password
+    }
+    const response = await API.apiLogin(loginInfo);
+
+    if(!response) {
+      alert("Sai thông tin đăng nhập");
+    } else {
+      sessionStorage.setItem('token', response.token);
+      sessionStorage.setItem('username', username);
+      window.location.href = '/bill';
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform login logic here using 'username' and 'password' states
-    console.log('Username:', username);
-    console.log('Password:', password);
-    // You can send this data to an API or perform validation here
   };
 
   return (

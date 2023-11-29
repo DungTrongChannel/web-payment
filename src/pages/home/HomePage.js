@@ -1,60 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css'; // Your CSS file
 import { Button } from 'react-bootstrap';
-import BillPage from '../bill/BillPage';
-import Payment from '../payments/PaymentPage';
-import Transaction from '../transaction/TransactionPage';
-import History from '../history/HistoryPage';
 
 const HomePage = () => {
-  const [selectedItem, setSelectedItem] = useState('0'); // State to store the selected item
+    const [selectedItem, setSelectedItem] = useState('0'); // State to store the selected item
 
-  // Function to handle header item click
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-  };
-
-  useEffect(() => {
-    const data = localStorage.getItem('selectedItem');
-    if (data) {
-      // const parsedData = JSON.parse(selectedItem);
-      // Use the parsedData as needed
-      console.log(data);
-      // Don't forget to clear the stored data if needed
-      localStorage.removeItem('selectedItem');
-      setSelectedItem(data);
+    const curentUsername = sessionStorage.getItem('username');
+    console.log('curentUsername: ', curentUsername)
+    if (!curentUsername) {
+        window.location.href = '/';
     }
-  }, []);
 
-  return (
-    <div className="App">
-      <header className="header">
-        <div className={`header-item ${selectedItem.includes('0') ? 'active' : ''}`} onClick={() => handleItemClick('0')}>
-          Tạo đơn hàng
-        </div>
-        <div className={`header-item ${selectedItem === '1' ? 'active' : ''}`} onClick={() => handleItemClick('1')}>
-        Lịch sử giao dịch
-        </div>
-        <div id='btnLogout'>
-          <Button>Đăng xuất</Button>
-        </div>
-      </header>
-      <div className="content">
-        {/* Content whose text color will change based on selected item */}
-        {
-          (selectedItem === '0' && (
-            <BillPage />
-          )) || (selectedItem === '0.1' && (
-            <Payment />
-          )) || (selectedItem === '0.2' && (
-            <Transaction/>
-          )) || (selectedItem === '1' && (
-            <History/>
-          ))
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        if(selectedItem==='0') {
+            window.location.href = '/bill';
         }
-      </div>
-    </div>
-  );
+    };
+
+    const handleBtnLogout = () => {
+        sessionStorage.clear();
+        window.location.href = '/';
+    };
+
+    useEffect(() => {
+        const selected = sessionStorage.getItem('selectedItem');
+        if (selected) {
+            // const parsedData = JSON.parse(selectedItem);
+            sessionStorage.removeItem('selectedItem');
+            setSelectedItem(selected);
+        }
+    }, []);
+
+    return (
+        <header className="header">
+            <div className={`header-item ${selectedItem.includes('0') ? 'active' : ''}`} onClick={() => handleItemClick('0')}>
+                Tạo đơn hàng
+            </div>
+            <div className={`header-item ${selectedItem === '1' ? 'active' : ''}`} onClick={() => handleItemClick('1')}>
+                Lịch sử giao dịch
+            </div>
+            <div id='btnLogout'>
+                <b>{curentUsername}</b>
+                <Button onClick={() => handleBtnLogout()}>Đăng xuất</Button>
+            </div>
+        </header>
+    );
 };
 
 export default HomePage;

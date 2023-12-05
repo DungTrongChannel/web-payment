@@ -1,0 +1,48 @@
+/* Responsive layout */
+.transaction-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .transaction-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 768px) {
+    .transaction-wrapper {
+      flex-direction: row;
+    }
+  }
+  
+  .left-section {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for QR code image */
+  .qr-code-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .right-section {
+    flex: 1;
+    margin-top: 60px;
+    text-align: left;
+  }
+  
+  /* Style for transaction information */
+  .transaction-info {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
+  #text-pending-paymnet {
+    color: red;
+  }
+  

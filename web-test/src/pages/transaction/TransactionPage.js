@@ -29,24 +29,41 @@ function Transaction() {
         billInfoObject.accountNo = '' + billInfoObject.accountNo;
         API.apiCreateTransaction(billInfoObject);
 
+        // call api auto set status
+        // if (billInfoObject.acqId === prodConfig.ACB_ID) {
+        //   const intervalId = setInterval(getHistoryAndChangeStatusACB(billInfoObject.uuid), 10000); // Fetch data every 5 seconds (5000 milliseconds)
+        //   if (statusProcess === 1) {
+        //     clearInterval(intervalId);
+        //   }
+        // }
+
         let intervalId;
+
         // Start the interval
         intervalId = setInterval(() => {
-          getHistoryAndChangeStatusACB(billInfoObject.uuid, billInfoObject.acqName, intervalId); // Call the function inside the interval
-        }, 3000); // Fetch data every 10 seconds (10000 milliseconds)
+          getHistoryAndChangeStatusACB(billInfoObject.uuid); // Call the function inside the interval
+        }, 2000); // Fetch data every 10 seconds (10000 milliseconds)
 
-
+        // Check condition and clear interval
+        if (statusProcess === 1) {
+          clearInterval(intervalId);
+        }
 
       };
     }
     fetchData();
   }, []);
 
-  async function getHistoryAndChangeStatusACB(uuid, acqName, intervalId) {
+  async function getHistoryAndChangeStatusACB(uuid) {
     try {
-      const responseHistory = await API.apiGetHistoryACB(uuid, acqName);
-      if (responseHistory === true) {
+      const responseHistory = await API.apiGetHistoryACB();
+      console.log('INCLUDE: ', JSON.stringify(responseHistory.transactions).includes(uuid))
+      
+      console.log('statusProcess: ',statusProcess)
+      
+      if (statusProcess !== 1 && JSON.stringify(responseHistory.transactions).includes(uuid)) {
         // update to db
+        API.apiChangeStatusTransaction(uuid);
         setStatusProcess(1);
       }
     } catch (error) {
@@ -58,7 +75,6 @@ function Transaction() {
   return (
     <div className="transaction-container">
       <h1>Thông tin giao dịch</h1>
-      <h2>Lưu ý: Không load lại trang</h2>
       <div className="transaction-wrapper">
         <div className="left-section">
           {/* Placeholder for QR code image */}

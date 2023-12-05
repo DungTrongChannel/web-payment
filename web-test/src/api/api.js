@@ -97,8 +97,8 @@ const apiChangeStatusTransaction = async (uuid) => {
   }
 }
 
-const apiGetHistoryACB = async (uuid, bank) => {
-  const url = prodConfig.BASE_URL + '/transaction/check-payment?uuid=' + uuid+'&bank='+ bank;
+const apiGetHistoryACB = async () => {
+  const url = prodConfig.BASE_URL + '/transaction/test';
   try {
     let token = sessionStorage.getItem('token');
     const response = await fetch(url, {

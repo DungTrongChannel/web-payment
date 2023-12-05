@@ -1,16 +1,16 @@
 import '../home/Home.css'; // Your CSS file
-import HistoryPage from './HistoryPage';
+import TransactionPage from './TransactionPage';
 import HomePage from '../home/HomePage';
 
-const HistoryPage2 = () => {
+const TransactionPage2 = () => {
   return (
     <div className="App">
-      <HomePage selected='history'/>
+      <HomePage/>
       <div className="content">
-        <HistoryPage />
+        <TransactionPage />
       </div>
     </div>
   );
 };
 
-export default HistoryPage2;
+export default TransactionPage2;

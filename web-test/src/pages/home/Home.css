@@ -1,0 +1,59 @@
+/* App.css */
+
+/* Define colors for different items */
+/* ... (same as before) ... */
+
+/* Styling for header items */
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightgray;
+    padding: 20px;
+  }
+  
+  .header-item {
+    cursor: pointer;
+  }
+  
+  .header-item.active {
+    font-weight: bold;
+    color: red;
+  }
+  
+  /* Styling for content */
+  .content {
+    margin-top: 20px;
+  }
+  
+  .content-text {
+    font-size: 18px;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #btnLogout {
+        width: 30%;
+        height: 20%;
+        margin-left: 77%;
+        margin-right: 3%;
+    }
+
+    #btnLogout button {
+        padding: 3px;
+    }
+  
+    .header-item {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+  }
+  

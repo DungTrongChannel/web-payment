@@ -1,6 +1,7 @@
 // config.js
 const prodConfig = {
-    BASE_URL: 'http://localhost:8080/api',
+    // BASE_URL: 'http://localhost:8080/api',
+    BASE_URL: 'http://103.14.48.164:8080/api',
 
     //---ACB---//
     ACB_ACCOUNT_NO: 17183327,

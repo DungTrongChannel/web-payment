@@ -34,9 +34,6 @@ function Transaction() {
         intervalId = setInterval(() => {
           getHistoryAndChangeStatusACB(billInfoObject.uuid, billInfoObject.acqName, intervalId); // Call the function inside the interval
         }, 3000); // Fetch data every 10 seconds (10000 milliseconds)
-
-
-
       };
     }
     fetchData();
@@ -46,7 +43,6 @@ function Transaction() {
     try {
       const responseHistory = await API.apiGetHistoryACB(uuid, acqName);
       if (responseHistory === true) {
-        // update to db
         setStatusProcess(1);
       }
     } catch (error) {
@@ -58,7 +54,6 @@ function Transaction() {
   return (
     <div className="transaction-container">
       <h1>Thông tin giao dịch</h1>
-      <h2>Lưu ý: Không load lại trang</h2>
       <div className="transaction-wrapper">
         <div className="left-section">
           {/* Placeholder for QR code image */}
@@ -78,6 +73,11 @@ function Transaction() {
             <p><strong>Trạng thái giao dịch:</strong> <i id='text-pending-paymnet'>{statusProcess === 0 ? 'Đang xử lý' : 'Thành công'}</i></p>
           </div>
         </div>
+      </div>
+      <div className='trans'>
+        <h3>Lưu ý:</h3>
+        <h3>- Nhân viên không load lại trang</h3>
+        <h3>- Khách hàng không thay đổi nội dung giao dịch</h3>
       </div>
     </div>
   );

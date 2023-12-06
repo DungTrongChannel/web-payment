@@ -97,6 +97,29 @@ const apiChangeStatusTransaction = async (uuid) => {
   }
 }
 
+
+const apiHistoryTransaction = async (userName, fromDate, toDate, pageNo, pageSize) => {
+  const url = prodConfig.BASE_URL + 
+        '/transaction?userName=' + userName + 
+        '&fromDate=' + fromDate +'&toDate=' + toDate +
+        '&pageNo=' + pageNo + '&pageSize=' + pageSize;
+  try {
+    let token = sessionStorage.getItem('token');
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+        // Add any other headers as needed
+      }
+    });
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    alert("Có lỗi xảy ra")
+  }
+}
+
 const apiGetHistoryACB = async (uuid, bank) => {
   const url = prodConfig.BASE_URL + '/transaction/check-payment?uuid=' + uuid+'&bank='+ bank;
   try {
@@ -114,8 +137,7 @@ const apiGetHistoryACB = async (uuid, bank) => {
   } catch (error) {
     alert("Có lỗi xảy ra")
   }
-
 }
 
-export { apiLogin, apiRegister, apiGenQrCode,
+export {apiHistoryTransaction, apiLogin, apiRegister, apiGenQrCode,
    apiCreateTransaction, apiGetHistoryACB, apiChangeStatusTransaction};

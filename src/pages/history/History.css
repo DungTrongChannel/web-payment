@@ -52,10 +52,24 @@
   padding: 8px;
 }
 
+#btnSearch {
+  height: 60%;
+}
+
+.buttonPaging {
+  width: auto;
+  background-color: darkgreen;
+  padding: 9px;
+  margin: 4px;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .input-field {
     flex: 1 1 100%;
     margin-right: 28x;
+  }
+  .changeDisplay {
+    display: none;
   }
 }

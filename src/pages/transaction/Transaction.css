@@ -45,4 +45,9 @@
   #text-pending-paymnet {
     color: red;
   }
+
+  .trans h3 {
+    color: red;
+    text-align: left
+  }
   

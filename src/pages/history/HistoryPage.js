@@ -64,7 +64,7 @@ function History() {
 
   return (
     <div className="history-container">
-      <h1 className="title">Lịch sử giao dịch</h1>
+      <h1 style={{color: '#10a010'}} className="title">Lịch sử giao dịch</h1>
       <div className="input-section">
         <div className="input-field">
           <label htmlFor="employeeCode">Mã nhân viên:</label>

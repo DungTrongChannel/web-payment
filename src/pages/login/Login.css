@@ -37,3 +37,12 @@ button {
   color: #fff;
   cursor: pointer;
 }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+#btnLogin {
+  margin-bottom: 10px;
+}

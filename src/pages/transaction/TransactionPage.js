@@ -8,6 +8,8 @@ function Transaction() {
   const [imageData, setImageData] = useState('');
   const [billInfoObject, setBillInfoObject] = useState('');
   const [statusProcess, setStatusProcess] = useState(0);
+  let intervalId;
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +31,6 @@ function Transaction() {
         billInfoObject.accountNo = '' + billInfoObject.accountNo;
         API.apiCreateTransaction(billInfoObject);
 
-        let intervalId;
         // Start the interval
         intervalId = setInterval(() => {
           getHistoryAndChangeStatusACB(billInfoObject.uuid, billInfoObject.acqName, intervalId); // Call the function inside the interval
@@ -43,12 +44,23 @@ function Transaction() {
     try {
       const responseHistory = await API.apiGetHistoryACB(uuid, acqName);
       if (responseHistory === true) {
+        console.log('CLEAR: ' + intervalId);
+        clearInterval(intervalId);
+        setIsOpen(!isOpen);
         setStatusProcess(1);
       }
     } catch (error) {
       // Handle fetch errors
       console.error(error.message);
     }
+  };
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen); // Toggle the state to show/hide the popup
+  };
+  
+  const createNewBill = () => {
+    window.location.href = '/bill';
   };
 
   return (
@@ -65,15 +77,48 @@ function Transaction() {
         </div>
         <div className="right-section">
           <div className="transaction-info">
-            <p><strong>Chủ tài khoản:</strong> {billInfoObject.accountName}</p>
-            <p><strong>Số tài khoản:</strong> {billInfoObject.accountNo}</p>
+            <div>
+              <strong style={{ display: 'inline-block', marginRight: '5px' }}>Chủ tài khoản:</strong>
+              <p style={{ display: 'inline-block', margin: '0' }}>{billInfoObject.accountName}</p>
+            </div>
+            <div>
+              <strong style={{ display: 'inline-block', marginRight: '5px' }}>Số tài khoản:</strong>
+              <p style={{ display: 'inline-block', margin: '0', color: 'blue' }}>{billInfoObject.accountNo}</p>
+            </div>
+            <div>
+              <strong style={{ display: 'inline-block', marginRight: '5px' }}>Số tiền:</strong>
+              <p style={{ display: 'inline-block', margin: '0', color: 'chocolate' }}>{billInfoObject.amount} VNĐ</p>
+            </div>
+            <div>
+              <strong style={{ display: 'inline-block', marginRight: '5px' }}>Nội dung:</strong>
+              <p style={{ display: 'inline-block', margin: '0', color: 'blueviolet' }}>{billInfoObject.content}</p>
+            </div>
+            <div>
+              <strong style={{ display: 'inline-block', marginRight: '5px' }}>Trạng thái giao dịch:</strong>
+              <p style={{ display: 'inline-block', margin: '0' }}><i id='text-pending-paymnet'>{statusProcess === 0 ? 'Đang xử lý' : 'Thành công'}</i></p>
+            </div>
+            {/* <p><strong>Chủ tài khoản:</strong> {billInfoObject.accountName}</p> */}
+            {/* <p><strong>Số tài khoản:</strong> {billInfoObject.accountNo}</p>
             <p><strong>Số tiền:</strong> {billInfoObject.amount} VND</p>
-            <p><strong>Nội dung:</strong> {billInfoObject.content}</p>
+            <p><strong>Nội dung:</strong> {billInfoObject.content}</p> */}
             {/* <p><strong>Nội dung 1:</strong> {billInfoObject.uuid}</p> */}
-            <p><strong>Trạng thái giao dịch:</strong> <i id='text-pending-paymnet'>{statusProcess === 0 ? 'Đang xử lý' : 'Thành công'}</i></p>
+            {/* <p><strong>Trạng thái giao dịch:</strong> <i id='text-pending-paymnet'>{statusProcess === 0 ? 'Đang xử lý' : 'Thành công'}</i></p> */}
           </div>
         </div>
       </div>
+
+      <div>
+        {isOpen && (
+          <div className="popup-container">
+            <div className="overlay" onClick={togglePopup} />
+            <div className="popup">
+              <h2>Thanh toán thành công</h2>
+              <button onClick={createNewBill}>Tạo giao dịch mới</button>
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className='trans'>
         <h3>Lưu ý:</h3>
         <h3>- Nhân viên không load lại trang</h3>

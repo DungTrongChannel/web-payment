@@ -37,7 +37,7 @@ function Payment() {
 
   return (
     <div className="App">
-      <h1>Chọn ngân hàng</h1>
+      <h1 style={{color: '#10a010'}}>Chọn ngân hàng</h1>
       <div className="table-container">
         <table className="bank-table">
           <thead>

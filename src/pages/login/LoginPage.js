@@ -39,10 +39,10 @@ const LoginForm = () => {
 
   return (
     <div className="form-container">
-      <h2>Login</h2>
+      <h2>Đăng nhập</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="login-username">Username:</label>
+          <label htmlFor="login-username">Tài khoản:</label>
           <input
             type="text"
             id="login-username"
@@ -51,7 +51,7 @@ const LoginForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="login-password">Password:</label>
+          <label htmlFor="login-password">Mật khẩu:</label>
           <input
             type="password"
             id="login-password"
@@ -59,8 +59,8 @@ const LoginForm = () => {
             onChange={handlePasswordChange}
           />
         </div>
-        <button type="submit" onClick={handleLoginBtn}>Login</button>
-        <a href='/register'>Register?</a>
+        <button id='btnLogin' type="submit" onClick={handleLoginBtn}>Login</button>
+        <a href='/register'>Đăng ký?</a>
       </form>
     </div>
   );

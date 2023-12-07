@@ -25,7 +25,7 @@ const BillPage = (e) => {
 
   return (
     <div className="bill-container">
-      <h1>Tạo mới đơn hàng</h1>
+      <h1 style={{color: '#10a010'}}>Tạo đơn hàng</h1>
       <form className="bill-form">
         <div className="form-group12">
           <label htmlFor="productName">Tên sản phẩm:</label>
